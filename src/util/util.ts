@@ -21,7 +21,7 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
       const outpath = path.resolve(__dirname, filepath);
       await photo
         .resize(256, 256) // resize
-        .quality(60) // set JPEG quality
+        .quality(80) // set JPEG quality
         .greyscale() // set greyscale
         .write(outpath, () => {
           resolve(outpath);
