@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import Jimp = require("jimp");
 
 export const validateUrl = (url: string) =>
@@ -15,14 +16,15 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
       const photo = await Jimp.read(inputURL);
-      const outpath =
-        "/tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
+      const filepath =
+        "../../tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
+      const outpath = path.resolve(__dirname, filepath);
       await photo
         .resize(256, 256) // resize
         .quality(60) // set JPEG quality
         .greyscale() // set greyscale
-        .write(__dirname + outpath, () => {
-          resolve(__dirname + outpath);
+        .write(outpath, () => {
+          resolve(outpath);
         });
     } catch (error) {
       reject(error);
