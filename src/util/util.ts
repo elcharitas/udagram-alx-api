@@ -17,7 +17,7 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
     try {
       const photo = await Jimp.read(inputURL);
       const filepath =
-        "../../tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
+        "../tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
       const outpath = path.resolve(__dirname, filepath);
       await photo
         .resize(256, 256) // resize
@@ -36,7 +36,7 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
 // helper function to delete files on the local disk
 // useful to cleanup after tasks
 export async function deleteLocalFiles() {
-  const tmpDir = path.resolve(__dirname, "../../tmp/");
+  const tmpDir = path.resolve(__dirname, "../tmp/");
   fs.readdir(tmpDir, (error, files) => {
     if (error) return;
     for (let file of files) {
