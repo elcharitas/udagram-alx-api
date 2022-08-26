@@ -26,9 +26,11 @@ import { filterImageFromURL, validateUrl, deleteLocalFiles } from "./util/util";
     if (!validateUrl(imgUrl)) res.send("Invalid URL");
     else {
       // 2. filter the image
-      const imagePath = filterImageFromURL(imgUrl);
+      const imagePath = await filterImageFromURL(imgUrl);
       // 3. send the resulting file in response
-      res.sendFile(await imagePath);
+      res.sendFile(imagePath);
+      // 4. clear locally stored files
+      deleteLocalFiles();
     }
   });
 
