@@ -26,10 +26,12 @@ import { filterImageFromURL, validateUrl, deleteLocalFiles } from "./util/util";
     if (!validateUrl(imgUrl)) res.status(422).send("Invalid Image URL");
     else {
       // 2. filter the image and catch image filter errors
-      const imagePath = await filterImageFromURL(imgUrl).catch((err) => {
-        res.status(422).send(`Error filtering image: ${err.message}`);
-        return null;
-      });
+      const imagePath: string = await filterImageFromURL(imgUrl).catch(
+        (err: Error) => {
+          res.status(422).send(`Error filtering image: ${err.message}`);
+          return null;
+        }
+      );
       if (!imagePath) return;
       // 3. send the resulting file in response
       res.sendFile(imagePath, async () => {
