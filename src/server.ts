@@ -28,9 +28,10 @@ import { filterImageFromURL, validateUrl, deleteLocalFiles } from "./util/util";
       // 2. filter the image
       const imagePath = await filterImageFromURL(imgUrl);
       // 3. send the resulting file in response
-      res.sendFile(imagePath);
-      // 4. clear locally stored files
-      deleteLocalFiles();
+      res.sendFile(imagePath, async () => {
+        // 4. clear locally stored files
+        await deleteLocalFiles();
+      });
     }
   });
 

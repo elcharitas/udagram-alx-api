@@ -37,10 +37,13 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
 // useful to cleanup after tasks
 export async function deleteLocalFiles() {
   const tmpDir = path.resolve(__dirname, "../tmp/");
-  fs.readdir(tmpDir, (error, files) => {
-    if (error) return;
-    for (let file of files) {
-      fs.unlinkSync(path.resolve(tmpDir, file));
-    }
+  return new Promise((resolve, reject) => {
+    fs.readdir(tmpDir, (error, files) => {
+      if (error) return reject(error);
+      for (let file of files) {
+        fs.unlinkSync(path.resolve(tmpDir, file));
+      }
+      resolve(files);
+    });
   });
 }
