@@ -10,7 +10,7 @@ This NodeJS based microservice api was deployed on aws elastic beanstalk with th
 * Region: US West (N.California)
 * Platform: NodeJS v16
 
-**Endpoint URL**: https://elcharitas-udagram-9-dev.us-west-1.elasticbeanstalk.com
+**Endpoint URL**: http://elcharitas-udagram-9-dev.us-west-1.elasticbeanstalk.com
 
 ![](./deployment_screenshots/DEPLOYMENT_SCREENSHOT_2.png)
 
