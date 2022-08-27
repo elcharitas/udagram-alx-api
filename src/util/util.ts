@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
-import Jimp = require("jimp");
+import fetch from "node-fetch";
+import Jimp from "jimp";
 
 export const validateUrl = (url: string) =>
   url && /^htt(p|ps):\/\/.{3,}\..{3,8}/.test(url);
@@ -15,7 +16,18 @@ export const validateUrl = (url: string) =>
 export async function filterImageFromURL(inputURL: string): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
-      const photo = await Jimp.read(inputURL);
+      /**
+       * Jimp read Image
+       * 
+       * Having Jimp read the image is faster but it may result in errors
+       * So, read image with jimp. If an error is thrown,
+       * attempt to read fetch the image buffer and read that instead
+       */
+      const photo = await Jimp.read(inputURL).catch(async () => {
+        const imageResp = await fetch(inputURL);
+        const imageBuffer = await imageResp.arrayBuffer();
+        return Jimp.read(imageBuffer);
+      });
       const filepath =
         "../tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
       const outpath = path.resolve(__dirname, filepath);
