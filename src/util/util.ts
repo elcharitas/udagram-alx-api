@@ -11,12 +11,13 @@ const VALID_URL_REGEX = /^htt(p|ps):\/\/.{3,}\..{3,8}/;
  *
  * @param url
  */
-export const validateUrl = (url: string) => url && VALID_URL_REGEX.test(url);
+export const validateUrl = (url: string): boolean =>
+  url && VALID_URL_REGEX.test(url);
 
 /**
  * Generates a image random path
  */
-export const randomPath = () =>
+export const randomPath = (): string =>
   "../tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
 
 // filterImageFromURL
