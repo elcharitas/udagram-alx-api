@@ -7,7 +7,7 @@ enum EStatus {
 }
 
 (async () => {
-  // Init the Express applic ation
+  // Init the Express application
   const app = express();
 
   // Set the network port
@@ -18,7 +18,7 @@ enum EStatus {
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get("/", async (_req: Request, res: Response) => {
+  app.get("/", (_req: Request, res: Response) => {
     res.send("try GET /filteredimage?image_url={{}}");
   });
 
@@ -34,7 +34,9 @@ enum EStatus {
       // 2. filter the image and catch image filter errors
       const imagePath: string = await filterImageFromURL(imgUrl).catch(
         (err: Error) => {
-          res.status(422).send(`Error filtering image: ${err.message}`);
+          res
+            .status(EStatus.Error)
+            .send(`Error filtering image: ${err.message}`);
           return null;
         }
       );
